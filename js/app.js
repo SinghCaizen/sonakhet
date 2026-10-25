@@ -127,8 +127,63 @@ const IC = {
   hand:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11.5V6a1.5 1.5 0 0 1 3 0V5a1.5 1.5 0 0 1 3 0v1a1.5 1.5 0 0 1 3 0v5.5c0 4.5-3 8.5-7.5 8.5S4 16.5 3 13.5c-.3-1 .2-2 1.2-2.2.8-.2 1.6.2 2 1z"/></svg>',
   pack:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l7-4 7 4v8l-7 4-7-4z"/><path d="M5 8l7 4 7-4M12 12v8"/></svg>',
   truck:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7z"/><circle cx="6.5" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>',
-  search:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+  basket:'<svg viewBox="0 0 24 24" fill="none" stroke="#F3E9CF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.7 8.2a2 2 0 0 1-2 1.8H7.7a2 2 0 0 1-2-1.8L4 10z"/><path d="M8.5 10l3.5-6 3.5 6M8 14h8M7.4 17h9.2"/></svg>',
+  sun:'<svg viewBox="0 0 24 24"><g class="pet"><path d="M12 1.8l1.2 3-1.2 1.4L10.8 4.8zM18.6 4l-.6 3.2-1.7.5.4-2.1zM21.6 9.4l-2.6 2-1.7-.6 1.7-1.2zM20.9 15.6l-3.2-.8-.6-1.7 2.1.5zM17 20.2l-2.1-2.6.5-1.7 1.3 1.6zM11 22.2l-1.2-3 1.2-1.4 1.2 1.4zM5.4 20l.6-3.2 1.7-.5-.4 2.1zM2.4 14.6l2.6-2 1.7.6-1.7 1.2zM3.1 8.4l3.2.8.6 1.7-2.1-.5zM7 3.8l2.1 2.6-.5 1.7L7.3 6.5z"/></g><circle class="ctr" cx="12" cy="12" r="4.6"/></svg>',
+  leaf:'<svg viewBox="0 0 24 24" fill="#3E7C4F"><path d="M5 19C5 10 12 4.5 20 4c.5 8-5 15-14 15zm0 0c2-5 5.5-8.5 10-10.5C10.5 10.5 7 14 5 19z" opacity=".92"/></svg>',
+  stalk:'<svg viewBox="0 0 24 40" fill="none" stroke="#C79A17" stroke-width="2" stroke-linecap="round"><path d="M12 38V16"/><path d="M12 16C12 11 9.5 8 5.5 8c0 4.5 2.5 8 6.5 8zM12 16c0-5 2.5-8 6.5-8 0 4.5-2.5 8-6.5 8zM12 25c0-5-2.5-8-6.5-8 0 4.5 2.5 8 6.5 8zM12 25c0-5 2.5-8 6.5-8 0 4.5-2.5 8-6.5 8z" fill="#E8B923" fill-opacity=".35"/></svg>',
+  tractor:'<svg viewBox="0 0 24 24" fill="none" stroke="#8B5E3C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="17" r="3.4"/><circle cx="18" cy="18.5" r="2"/><path d="M7 13.6V8h5l2.5 5.5M12 8V5.5h4L18 12M10.4 17h5.6"/></svg>',
+  seedling:'<svg viewBox="0 0 24 24" fill="none" stroke="#256B52" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="grow" d="M12 21v-8"/><path class="grow" d="M12 13c0-3.5-2.6-5.5-6.5-5.5C5.5 11 8 13 12 13zM12 11.5c.3-3.3 2.7-5 6.3-5 .2 3.4-2.2 5.4-6.3 5z"/><path d="M5 21.5h14" stroke="#8B5E3C"/></svg>'
 };
+
+/* ---------- farmer micro-interactions ---------- */
+const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function grainBurst(x, y, n){
+  if(RM) return;
+  for(let i=0;i<(n||7);i++){
+    const s = document.createElement('span'); s.className='grainp';
+    s.style.left = x+'px'; s.style.top = y+'px'; document.body.appendChild(s);
+    const dx = (Math.random()*90-45), dy = 40+Math.random()*55;
+    s.animate([{transform:'translate(0,0) rotate(0deg)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) rotate('+(Math.random()*260-130)+'deg)',opacity:0}],{duration:620+Math.random()*320,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish = ()=>s.remove();
+  }
+}
+function fxQty(qtyEl, dir){
+  if(RM || !qtyEl) return;
+  const inp = qtyEl.querySelector('input');
+  if(inp){ inp.classList.remove('bump'); void inp.offsetWidth; inp.classList.add('bump'); }
+  const s = document.createElement('span'); s.className = dir>0 ? 'fxstalk' : 'fxleaf';
+  s.innerHTML = dir>0 ? IC.stalk : IC.leaf;
+  qtyEl.appendChild(s); setTimeout(()=>s.remove(), 850);
+  if(dir>0){ const r = qtyEl.getBoundingClientRect(); grainBurst(r.left + r.width/2, r.top + 4, 6); }
+}
+function flyToCart(fromEl){
+  const target = document.querySelector('.hbtn .lbl') ? document.querySelectorAll('.hbtn')[0] : null;
+  if(RM || !fromEl || !target) return;
+  const a = fromEl.getBoundingClientRect(), b = target.getBoundingClientRect();
+  const d = document.createElement('div'); d.className='flydot'; d.innerHTML = IC.basket;
+  d.style.left = (a.left + a.width/2 - 17)+'px'; d.style.top = (a.top + a.height/2 - 17)+'px';
+  document.body.appendChild(d);
+  const dx = (b.left + b.width/2) - (a.left + a.width/2), dy = (b.top + b.height/2) - (a.top + a.height/2);
+  d.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:'translate('+(dx*.55)+'px,'+(dy-70)+'px) scale(.92)',opacity:1,offset:.55},{transform:'translate('+dx+'px,'+dy+'px) scale(.3)',opacity:.65}],{duration:720,easing:'cubic-bezier(.3,.6,.4,1)'}).onfinish = ()=>{
+    d.remove(); target.classList.remove('cartbump'); void target.offsetWidth; target.classList.add('cartbump');
+  };
+  grainBurst(a.left + a.width/2, a.top, 5);
+}
+const wish = {
+  get(){ try{ return JSON.parse(localStorage.getItem('sk_wish')||'[]'); }catch(e){ return []; } },
+  toggle(id){ let w = this.get(); w = w.includes(id) ? w.filter(x=>x!==id) : w.concat(id); localStorage.setItem('sk_wish', JSON.stringify(w)); return w.includes(id); },
+  has(id){ return this.get().includes(id); }
+};
+/* seedling loader */
+(function(){
+  if(RM) return;
+  const o = document.createElement('div'); o.id='seedload';
+  o.innerHTML = '<div class="sl">'+IC.seedling+'<p>khet se taaza…</p></div>';
+  document.body.appendChild(o);
+  const hide = ()=>{ o.classList.add('gone'); setTimeout(()=>o.remove(), 600); };
+  window.addEventListener('load', ()=> setTimeout(hide, 420));
+  setTimeout(hide, 2400);
+})();
 
 /* ---------- header / footer ---------- */
 function paintHeader(active){
@@ -181,13 +236,14 @@ function cardHTML(p){
      '<span class="pouch" style="background:linear-gradient(160deg,'+p.colour+','+p.colour+'dd)">'+
        '<span class="pb">'+CONFIG.brandA+CONFIG.brandB+'</span><span class="pn">'+p.name+'</span>'+
        '<span class="pw">'+packLabel(first,p.unit)+'</span></span>'+
-     '<span class="lot">Lot '+p.lot+'</span></a>'+
+     '<span class="lot">Lot '+p.lot+'</span>'+IC.stalk.replace('<svg','<svg class="wind"')+'</a>'+
+   '<button type="button" class="wish'+(wish.has(p.id)?' on':'')+'" aria-label="Wishlist me jodein">'+IC.sun+'</button>'+
    '<div class="pbody"><h3><a href="product.html?id='+p.id+'">'+p.name+'</a></h3><div class="hindi">'+p.hindi+'</div>'+
    '<p class="desc">'+p.desc+'</p>'+
    '<div class="pricerow"><span class="pr">'+fmt(packPrice(p,first))+'</span><span class="per">'+perLabel(p,first)+'</span><span class="off"></span></div>'+
    '<div class="packsel">'+PACKS.map(k=>'<button type="button" data-kg="'+k+'" class="'+(k===first?'on':'')+'">'+packLabel(k,p.unit)+'</button>').join('')+'</div>'+
    '<div class="qtyrow"><div class="qty"><button type="button" class="qm">−</button><input value="1" inputmode="numeric" aria-label="Packet sankhya"><button type="button" class="qp">+</button></div>'+
-   '<button type="button" class="addbtn">Cart me Dalein</button></div>'+
+   '<button type="button" class="addbtn">'+IC.basket+'Cart me Dalein</button></div>'+
    '<div class="kgtot"></div>'+
    '</div></article>';
 }
@@ -200,7 +256,7 @@ function wireCard(card){
   function paint(){
     pr.textContent = fmt(packPrice(p,kg)*qty);
     per.textContent = perLabel(p,kg);
-    off.textContent = packOff(kg) ? Math.round(packOff(kg)*100)+'% pack bachat' : '';
+    off.innerHTML = packOff(kg) ? IC.wheat + '<span>' + Math.round(packOff(kg)*100) + '% pack bachat</span>' : '';
     inp.value = qty; pw.textContent = packLabel(kg,p.unit);
     tot.textContent = 'Kul: ' + (kg*qty) + (p.unit==='litre'?' litre':' kg') + ' · ' + qty + ' packet';
   }
@@ -208,10 +264,19 @@ function wireCard(card){
     card.querySelectorAll('.packsel button').forEach(x=>x.classList.remove('on'));
     b.classList.add('on'); kg = parseFloat(b.dataset.kg); paint();
   });
-  card.querySelector('.qm').onclick = ()=>{ qty = Math.max(1, qty-1); paint(); };
-  card.querySelector('.qp').onclick = ()=>{ qty = Math.min(50, qty+1); paint(); };
+  const qtyEl = card.querySelector('.qty');
+  card.querySelector('.qm').onclick = ()=>{ qty = Math.max(1, qty-1); paint(); fxQty(qtyEl, -1); };
+  card.querySelector('.qp').onclick = ()=>{ qty = Math.min(50, qty+1); paint(); fxQty(qtyEl, +1); };
   inp.onchange = ()=>{ qty = Math.min(50, Math.max(1, parseInt(inp.value)||1)); paint(); };
-  card.querySelector('.addbtn').onclick = ()=>{ cart.add(p.id, kg, qty); toast(p.name+' — '+qty+' packet cart me jod diya'); };
+  const addBtn = card.querySelector('.addbtn');
+  addBtn.onclick = ()=>{ cart.add(p.id, kg, qty); addBtn.classList.remove('filling'); void addBtn.offsetWidth; addBtn.classList.add('filling'); flyToCart(addBtn); toast(p.name+' — '+qty+' packet cart me jod diya'); };
+  const wBtn = card.querySelector('.wish');
+  if(wBtn) wBtn.onclick = e=>{ e.preventDefault(); const on = wish.toggle(p.id); wBtn.classList.toggle('on', on); toast(on ? p.name+' wishlist me gaya' : p.name+' wishlist se hata'); };
+  card.addEventListener('click', e=>{
+    if(e.target.closest('button, input, a')) return;
+    card.classList.remove('picked'); void card.offsetWidth; card.classList.add('picked');
+    if(!RM){ const t = document.createElement('span'); t.className='tractorflash'; t.innerHTML = IC.tractor; card.appendChild(t); setTimeout(()=>t.remove(), 1050); }
+  });
   paint();
 }
 
@@ -277,17 +342,18 @@ function initProduct(){
   function paint(){
     $('#dpr').textContent = fmt(packPrice(p,kg)*qty);
     $('#dper').textContent = perLabel(p,kg);
-    $('#doff').textContent = packOff(kg) ? Math.round(packOff(kg)*100)+'% pack bachat' : '';
+    $('#doff').innerHTML = packOff(kg) ? IC.wheat + '<span>' + Math.round(packOff(kg)*100) + '% pack bachat</span>' : '';
     $('#dtot').textContent = fmt(packPrice(p,kg)*qty);
     $('#dkg').textContent = 'Kul ' + (kg*qty) + (p.unit==='litre'?' litre':' kg');
     $('#dpw').textContent = packLabel(kg,p.unit);
     $('#dqty').value = qty;
   }
   $$('#dpk button').forEach(b=> b.onclick = ()=>{ $$('#dpk button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); kg = parseFloat(b.dataset.kg); paint(); });
-  $('#dqm').onclick = ()=>{ qty = Math.max(1,qty-1); paint(); };
-  $('#dqp').onclick = ()=>{ qty = Math.min(50,qty+1); paint(); };
+  const dQtyEl = document.querySelector('#pwrap .qty');
+  $('#dqm').onclick = ()=>{ qty = Math.max(1,qty-1); paint(); fxQty(dQtyEl, -1); };
+  $('#dqp').onclick = ()=>{ qty = Math.min(50,qty+1); paint(); fxQty(dQtyEl, +1); };
   $('#dqty').onchange = e=>{ qty = Math.min(50, Math.max(1, parseInt(e.target.value)||1)); paint(); };
-  $('#dadd').onclick = ()=>{ cart.add(p.id, kg, qty); toast('Cart me jod diya — '+p.name); };
+  $('#dadd').onclick = e=>{ cart.add(p.id, kg, qty); flyToCart(e.currentTarget); toast('Cart me jod diya — '+p.name); };
   $('#dbuy').onclick = ()=>{ cart.add(p.id, kg, qty); location.href = 'cart.html'; };
   paint();
   const rel = $('#relgrid');
@@ -327,7 +393,7 @@ function initCart(){
       '<div class="srow"><span>Daam (kul '+t.kg+' kg)</span><b>'+fmt(t.sub)+'</b></div>'+
       (t.disc? '<div class="srow"><span>Kilo Bachat ('+Math.round(t.tr*100)+'%)</span><b style="color:var(--terra)">− '+fmt(t.disc)+'</b></div>' : '')+
       '<div class="srow"><span>Delivery</span><b>'+(t.ship===0? 'MUFT' : fmt(t.ship))+'</b></div>'+
-      '<div class="tiernote">'+tierMsg(t.kg)+'<br>'+(t.ship? CONFIG.freeShipAbove + '₹+ ke order par delivery muft hai.' : 'Aapke order par delivery muft hai.')+'</div>'+
+      '<div class="tiernote">'+tierMsg(t.kg)+'<br>'+(t.ship? '₹' + CONFIG.freeShipAbove + '+ ke order par delivery muft hai.' : 'Aapke order par delivery muft hai.')+'</div>'+
       '<div class="srow tot"><span>Kul Dena Hai</span><b>'+fmt(t.total)+'</b></div>'+
       '<p style="font-size:13px;color:var(--mut);margin-top:8px">Payment: Cash on Delivery ya delivery par UPI.</p>';
   }

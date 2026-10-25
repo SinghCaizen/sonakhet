@@ -155,7 +155,7 @@ section.blk{padding:70px 0}
 .story2 p b{color:var(--ink)}
 
 /* footer */
-footer.site{background:#1d331f;color:#cfc39f;margin-top:0}
+footer.site{background:#143327;color:#cfc39f;margin-top:0}
 .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:34px;padding:56px 0 38px}
 footer.site h4{font-family:'Fraunces',serif;color:#f4ecd2;font-size:18px;margin-bottom:15px}
 footer.site a{color:#cfc39f;font-size:14.5px}
@@ -264,4 +264,111 @@ fieldset.pk .packsel button{padding:10px 16px;font-size:14.5px}
   .hero .in{padding:56px 0 64px}
   .f2{grid-template-columns:1fr}
   .pbody h3{font-size:16.5px}
+}
+
+
+/* ================================================================
+   REDESIGN v3 — Pure modern farmer & agriculture theme (LILA brief)
+   Palette: forest #1B4D3E · brown #8B5E3C · cream #F5F0E6 ·
+            harvest gold #E8B923 · muted terracotta
+   ================================================================ */
+:root{
+  --cream:#F5F0E6; --paper:#FDFBF4; --ink:#2A2620; --mut:#7A7263;
+  --green:#1B4D3E; --green2:#256B52; --leaf:#3E7C4F;
+  --gold:#E8B923; --gold2:#C79A17; --terra:#BC6C43; --soil:#8B5E3C;
+  --line:#E4D9BE; --soft:#F1EAD6; --soft2:#E7DCC0;
+  --rad:18px; --sh:0 16px 38px rgba(27,77,62,.14);
+}
+/* soft grain over the whole store */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2000;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+.hand{font-family:'Caveat',cursive;font-weight:700}
+.logo .lt b i{color:var(--gold2)}
+.strip{background:#143327}
+.hbtn .cnt{background:var(--terra)}
+
+/* faint crop rows in soft sections */
+.rows-bg{background-image:repeating-linear-gradient(93deg, rgba(27,77,62,.045) 0 2px, transparent 2px 34px)}
+
+/* ---------- product visual = wooden crate on a field ---------- */
+.pack{background:linear-gradient(180deg,#DCE8C9 0%,#CBDDB2 55%,#B9CF9C 100%) !important;
+  box-shadow:inset 0 0 0 7px #8B5E3C, inset 0 0 0 9px #6E4525, inset 0 -22px 26px rgba(110,69,37,.20), inset 0 14px 18px rgba(255,255,255,.35)}
+.pack::before{content:"";position:absolute;inset:7px;pointer-events:none;opacity:.5;
+  background:
+   repeating-linear-gradient(90deg, transparent 0 46px, rgba(110,69,37,.20) 46px 48px),
+   linear-gradient(180deg, transparent 62%, rgba(110,69,37,.20) 62%, rgba(110,69,37,.20) 64%, transparent 64%)}
+.pack .pouch{z-index:1}
+.pack .lot{font-family:'Caveat',cursive;font-size:14.5px;font-weight:700;letter-spacing:.01em;transform:rotate(-2deg);z-index:2}
+.pack .wind{position:absolute;right:14px;bottom:8px;width:26px;height:40px;z-index:1;opacity:.55;transform-origin:50% 90%}
+.pack svg.wind{width:26px;height:40px}
+
+/* leaf-stamp badge (organic stamp look) */
+.pack .tag{right:auto;left:58px;top:12px;background:#2F7A3E;color:#F2F7E4;border:1.6px dashed rgba(242,247,228,.75);
+  border-radius:50%;width:64px;height:64px;padding:6px;display:grid;place-items:center;text-align:center;
+  font-size:10px;line-height:1.25;letter-spacing:.03em;transform:rotate(-9deg);box-shadow:0 4px 10px rgba(27,77,62,.25);z-index:3}
+
+/* sunflower wishlist */
+.wish{position:absolute;left:12px;top:12px;z-index:4;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(139,94,60,.45);
+  background:rgba(253,251,244,.92);display:grid;place-items:center;padding:0;transition:.2s}
+.wish svg{width:23px;height:23px}
+.wish .pet{fill:#D9A72E}.wish .ctr{fill:#8B5E3C}
+.wish:hover{transform:scale(1.1)}
+.wish.on{border-color:var(--gold2);background:#FBEFC4;box-shadow:0 4px 14px rgba(232,185,35,.45)}
+.wish.on .pet{fill:#E8B923}
+
+/* discount = golden wheat ribbon */
+.pricerow .off{background:linear-gradient(100deg,#E8B923,#D9A72E);color:#43320A;font-size:11.5px;padding:3px 10px 3px 8px;
+  border-radius:3px 99px 99px 3px;box-shadow:0 2px 6px rgba(199,154,23,.4);display:inline-flex;align-items:center;gap:5px}
+.pricerow .off svg{width:13px;height:13px;stroke:#43320A}
+.pricerow .off:empty{display:none}
+
+/* add-to-cart = harvest basket button */
+.addbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);transition:.2s}
+.addbtn svg{width:19px;height:19px;flex:none}
+.addbtn:hover{background:#256B52}
+.addbtn.filling svg{animation:basketfill .55s ease}
+@keyframes basketfill{0%{transform:translateY(0)}35%{transform:translateY(2.5px) scale(1.12)}100%{transform:translateY(0)}}
+
+/* quantity: bounce + growing stalk / falling leaf */
+.qty{position:relative}
+.qty input{transition:transform .18s}
+.qty input.bump{animation:qbump .38s cubic-bezier(.34,1.8,.5,1)}
+@keyframes qbump{0%{transform:scale(1)}40%{transform:scale(1.3)}100%{transform:scale(1)}}
+.fxstalk{position:absolute;left:50%;bottom:100%;width:22px;height:34px;margin-left:-11px;pointer-events:none;z-index:6;
+  transform-origin:50% 100%;animation:stalkgrow .68s cubic-bezier(.25,1.4,.45,1) forwards}
+@keyframes stalkgrow{0%{transform:scaleY(.1) translateY(6px);opacity:0}25%{opacity:1}100%{transform:scaleY(1) translateY(-3px);opacity:0}}
+.fxleaf{position:absolute;left:50%;top:60%;width:17px;height:17px;margin-left:-8px;pointer-events:none;z-index:6;animation:leaffall .8s ease-in forwards}
+@keyframes leaffall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(30px) rotate(140deg);opacity:0}}
+.grainp{position:fixed;width:6px;height:9px;border-radius:60% 60% 60% 60%/80% 80% 40% 40%;background:radial-gradient(circle at 35% 30%,#F6D876,#D9A72E);
+  pointer-events:none;z-index:3000;box-shadow:0 1px 2px rgba(110,69,37,.35)}
+.flydot{position:fixed;width:34px;height:34px;border-radius:12px;background:linear-gradient(150deg,#256B52,#1B4D3E);
+  display:grid;place-items:center;pointer-events:none;z-index:3001;box-shadow:0 10px 22px rgba(27,77,62,.35)}
+.flydot svg{width:21px;height:21px}
+.hbtn.cartbump{animation:cartbump .45s cubic-bezier(.34,1.8,.5,1)}
+@keyframes cartbump{0%{transform:scale(1)}40%{transform:scale(1.14)}100%{transform:scale(1)}}
+
+/* card lift + plough line */
+.pcard{position:relative}
+.pcard::after{content:"";position:absolute;left:16px;right:16px;bottom:9px;height:3px;border-radius:99px;
+  background:repeating-linear-gradient(90deg,#8B5E3C 0 14px,transparent 14px 22px);opacity:0;transform:scaleX(.2);transform-origin:left}
+.pcard:hover{border-color:var(--green2)}
+.pcard.picked::after{animation:plough 1s ease forwards}
+@keyframes plough{0%{opacity:0;transform:scaleX(.15)}25%{opacity:.75}100%{opacity:0;transform:scaleX(1)}}
+.tractorflash{position:absolute;left:14px;bottom:12px;width:30px;height:30px;z-index:5;pointer-events:none;animation:tractorride 1s ease forwards}
+@keyframes tractorride{0%{transform:translateX(0);opacity:0}15%{opacity:.9}85%{opacity:.9}100%{transform:translateX(120px);opacity:0}}
+
+/* seedling loader */
+#seedload{position:fixed;inset:0;background:#F5F0E6;z-index:5000;display:grid;place-items:center;transition:opacity .5s}
+#seedload.gone{opacity:0;pointer-events:none}
+#seedload .sl{text-align:center;color:var(--green)}
+#seedload svg{width:64px;height:64px}
+#seedload .grow{transform-origin:50% 100%;animation:seedgrow 1.1s ease-in-out infinite alternate}
+@keyframes seedgrow{from{transform:scale(.82) rotate(-2.5deg)}to{transform:scale(1.06) rotate(2.5deg)}}
+#seedload p{font-family:'Caveat',cursive;font-size:24px;margin-top:6px;color:var(--soil)}
+
+/* motion only for visitors jinke system me animations ON hain */
+@media (prefers-reduced-motion: no-preference){
+  .pcard:hover .wind{animation:windsway 1.6s ease-in-out infinite}
+  @keyframes windsway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(6deg)}}
+  .pcard{transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease}
 }
